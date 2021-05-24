@@ -1,0 +1,29 @@
+<!-- <h3 *ngIf="products; else noProduct">{{title}}</h3> -->
+<app-category></app-category>
+<div class="form-group">
+  <input 
+   class="form-control" 
+   id="productName" 
+   placeholder="Aramak metninizi giriniz..."
+  [(ngModel)]="filterText"
+  >
+  <small *ngIf="filterText" class="form-text text-muted">
+    <strong> Şuan {{filterText}} aradınız...  </strong>
+  </small>
+</div>
+<div class="row">
+  <ng-template #noProduct>
+    <div class="alert alert-danger" role="alert">
+      Bu Kategoride Ürün Bulunamadı.
+    </div>
+  </ng-template>
+  <div *ngFor="let product of products | productFilter:filterText" class="card justify-content-between" class="productsbox" style="width: 18rem;">
+    <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}} {{product.price | currency:'USD':true:"1.2-2"}}</h5>
+      <p class="card-text">Dizüstü bilgisayar kişisel, bu bağlamda taşınabilir bir bilgisayarlardır. Bir dizüstü
+        bilgisayar bir masaüstü bilgisayarın klavye, fare ve ekran gibi bileşenlerini tek bir parçada toplar. </p>
+      <a (click)="addToCart(product)" class="btn btn-primary">Sepete Ekle</a>
+    </div>
+  </div>
+</div>
